@@ -26,6 +26,7 @@
 
   </head>
   <body>
+
     <nav class='navbar navbar-default'>
       <div class='container'>
         <div class='navbar-header'>
@@ -37,10 +38,7 @@
         </ul>
       </div>
     </nav>
-
-
-
-    
+  
     <div class='container'>
       <div class='container-fluid'>
         <div class='col-sm-3'></div>
@@ -59,22 +57,27 @@
             <textarea class='form-control' rows='5' id='textInput'></textarea>
             <br/>
 
-            <button type='submit' id='submitButton' class='btn btn-default'>Submit</button>
+            <button type='submit' id='submitButton' data-toggle='modal' data-target='#successModal' class='btn btn-default'>Submit</button>
+
           </div>
         </div>
       </div>
     </div>
 
     <script>
+    
       var myDataRef = new Firebase('https://blazing-fire-8796.firebaseio.com/');
       $('#submitButton').click(function(){
         var recipeTitle = $('#recipeTitleInput').val();
         var classification = $('#classificationInput').val();
         var text = $('#textInput').val();
         myDataRef.push({recipe_title: recipeTitle, classification: classification, recipe_text: text});
+
+        $('#recipeTitleInput').val('');
+        $('#classificationInput').val('');
+        $('#textInput').val('');
       });
       
     </script>
-
   </body>
 </html>

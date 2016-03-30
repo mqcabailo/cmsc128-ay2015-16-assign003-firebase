@@ -61,7 +61,7 @@
         displayRecipe(message.recipe_title, message.classification, message.recipe_text);
       });
       function displayRecipe(recipeTitle, classification, text) {
-        $('#recipesDiv').append('<div class="col-sm-4"><h4>'+recipeTitle+' </h4><h5>Classification:'+classification+'</h5><p>'+text+'</p></div>');
+        $('#recipesDiv').append('<div class="col-sm-4"><h4>'+recipeTitle+' </h4><h5>Classification: '+classification+'</h5><p>'+text+'</p></div>');
 
         $('#recipesDiv')[0].scrollTop = $('#recipesDiv')[0].scrollHeight;
       };
