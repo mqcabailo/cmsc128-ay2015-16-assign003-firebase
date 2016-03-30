@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  </head>
+  <body>
+    <div id='messagesDiv'></div>
+    <form>
+        
+      <input type='text' id='recipeTitleInput' placeholder='Recipe Title'>
+      <input type='text' id='classificationInput' placeholder='Classification'>
+      <input type='text' id='textInput' placeholder='Recipe Description'>
+      
+    </form>
+   	<script>
+      var myDataRef = new Firebase('https://blazing-fire-8796.firebaseio.com/');
+      $('#textInput').keypress(function (e) {
+        if (e.keyCode == 13) {
+          var recipeTitle = $('#recipeTitleInput').val();
+          var classification = $('#classificationInput').val();
+          var text = $('#textInput').val();
+          myDataRef.push({recipe_title: recipeTitle, classification: classification, recipe_text: text});
+        }
+      });
+      myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.recipe_title, message.classification, message.recipe_text);
+      });
+      function displayChatMessage(recipeTitle, classification, text) {
+        $('<div/>').text(classification).prepend($('<em/>').text(recipeTitle+': ')).appendTo($('#messagesDiv'));
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      };
+    </script>
+  </body>
+</html>
