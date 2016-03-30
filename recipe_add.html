@@ -17,9 +17,6 @@
         color: #000000;
       }
 
-      p{
-        color: #808080;
-      }
       .navbar {
         background-color:#FFFFCC;
         color: #000000;
@@ -41,9 +38,30 @@
       </div>
     </nav>
 
+
+
+    
     <div class='container'>
       <div class='container-fluid'>
-        <div id='recipesDiv'></div>
+        <div class='col-sm-3'></div>
+        <div class='col-sm-6'>
+          <div class='form-group'>
+            <h3> Add Recipe </h3>
+            <label>Recipe Title:</label>    
+            <input type='text' class='form-control' id='recipeTitleInput' placeholder='Recipe Title'>
+            <br/>
+
+            <label>Classification:</label>
+            <input type='text' class='form-control' id='classificationInput' placeholder='Classification'>
+            <br/>
+
+            <label>Description:</label>
+            <textarea class='form-control' rows='5' id='textInput'></textarea>
+            <br/>
+
+            <button type='submit' id='submitButton' class='btn btn-default'>Submit</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -55,16 +73,6 @@
         var text = $('#textInput').val();
         myDataRef.push({recipe_title: recipeTitle, classification: classification, recipe_text: text});
       });
-      
-      myDataRef.on('child_added', function(snapshot) {
-        var message = snapshot.val();
-        displayRecipe(message.recipe_title, message.classification, message.recipe_text);
-      });
-      function displayRecipe(recipeTitle, classification, text) {
-        $('#recipesDiv').append('<div class="col-sm-4"><h4>'+recipeTitle+' </h4><h5>Classification:'+classification+'</h5><p>'+text+'</p></div>');
-
-        $('#recipesDiv')[0].scrollTop = $('#recipesDiv')[0].scrollHeight;
-      };
       
     </script>
 
