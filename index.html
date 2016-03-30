@@ -2,35 +2,86 @@
 <html>
   <head>
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'>
+    </script>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style> 
+      @font-face {
+        font-family: "hotpizza";
+        src: url("fonts/hotpizza.ttf");
+      }
+      body{
+        color: #000000;
+      }
+
+      .navbar {
+        background-color:#FFFFCC;
+        color: #000000;
+        font-family: hotpizza;
+      }
+    </style>
+
   </head>
   <body>
-    <div id='messagesDiv'></div>
-    <form>
-        
-      <input type='text' id='recipeTitleInput' placeholder='Recipe Title'>
-      <input type='text' id='classificationInput' placeholder='Classification'>
-      <input type='text' id='textInput' placeholder='Recipe Description'>
-      
-    </form>
-   	<script>
+    <nav class='navbar navbar-default'>
+      <div class='container'>
+        <div class='navbar-header'>
+          <h2>Recipe Chef<h2>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <div id='recipesDiv'></div>
+    <div class='container'>
+      <div class='container-fluid'>
+        <div class='col-sm-3'></div>
+        <div class='col-sm-6'>
+          <div class='form-group'>
+            <h3> Add Recipe </h3>
+
+            <label>Recipe Title:</label>    
+            <input type='text' class='form-control' id='recipeTitleInput' placeholder='Recipe Title'>
+            <br/>
+
+            <label>Classification:</label>
+            <input type='text' class='form-control' id='classificationInput' placeholder='Classification'>
+            <br/>
+
+            <label>Description:</label>
+            <textarea class='form-control' rows='5' id='textInput'></textarea>
+            <br/>
+
+            <button type='submit' id='submitButton' class='btn btn-default'>Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
       var myDataRef = new Firebase('https://blazing-fire-8796.firebaseio.com/');
-      $('#textInput').keypress(function (e) {
-        if (e.keyCode == 13) {
-          var recipeTitle = $('#recipeTitleInput').val();
-          var classification = $('#classificationInput').val();
-          var text = $('#textInput').val();
-          myDataRef.push({recipe_title: recipeTitle, classification: classification, recipe_text: text});
-        }
+      $('#submitButton').click(function(){
+        var recipeTitle = $('#recipeTitleInput').val();
+        var classification = $('#classificationInput').val();
+        var text = $('#textInput').val();
+        myDataRef.push({recipe_title: recipeTitle, classification: classification, recipe_text: text});
       });
+
+      /*
       myDataRef.on('child_added', function(snapshot) {
         var message = snapshot.val();
         displayChatMessage(message.recipe_title, message.classification, message.recipe_text);
       });
       function displayChatMessage(recipeTitle, classification, text) {
-        $('<div/>').text(classification).prepend($('<em/>').text(recipeTitle+': ')).appendTo($('#messagesDiv'));
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        $('<div/>').text(classification).prepend($('<em/>').text(recipeTitle+': ')).appendTo($('#recipesDiv'));
+        $('#recipesDiv')[0].scrollTop = $('#recipesDiv')[0].scrollHeight;
       };
+      */
     </script>
+
   </body>
 </html>
